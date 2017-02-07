@@ -1,0 +1,12 @@
+<div class="checkbox" style="display:none">
+    <ul>
+        <li>
+            <p>名称</p>
+            <input type="text" name="checkbox_name" id="checkbox_name" node="name" />
+        </li>
+        <li>
+            <p>选项</p>
+
+        </li>
+    </ul>
+</div>

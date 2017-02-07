@@ -1,0 +1,8 @@
+<div class="textbox" style="display:none">
+    <ul>
+        <li>
+            <p>名称</p>
+            <input type="text" name="textbox_name" id="textbox_name" node="name"/>
+        </li>
+    </ul>
+</div>

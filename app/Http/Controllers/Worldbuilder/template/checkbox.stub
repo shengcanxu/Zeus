@@ -1,0 +1,5 @@
+<div class="checkbox">
+    <p>CHECKBOX_DESCRIPTION</p>
+    <input type="radio" name="CHECKBOX_NAME" value="CHECKBOX_CONTENT1" /> CHECKBOX_CONTENT1
+    <input type="radio" name="CHECKBOX_NAME" value="CHECKBOX_CONTENT2" /> CHECKBOX_CONTENT2
+</div>

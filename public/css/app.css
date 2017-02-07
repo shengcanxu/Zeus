@@ -1,0 +1,7 @@
+.textbox,.checkbox, .formhandle{
+    position:relative;
+}
+
+.handle{
+    position:absolute;
+}
