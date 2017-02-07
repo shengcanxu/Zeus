@@ -32,6 +32,14 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Editing</div>
                     <div class="panel-content" id="editingContent">
+                        <div class="formname" style="display:none">
+                            <ul>
+                                <li>
+                                    <p>名称</p>
+                                    <input type="text" name="textbox_name" id="textbox_name" node="name"/>
+                                </li>
+                            </ul>
+                        </div>
                         @foreach($nodes as $node)
                             {!! $node->editingString() !!}
                         @endforeach

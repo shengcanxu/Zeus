@@ -4,7 +4,7 @@
 
 
 var formObject =  {
-    elementIndex : 1,
+    elementIndex : 0,
     name : "Form_Name",
     elements : [],
     _token : ""
@@ -75,9 +75,9 @@ $().ready(function(){
     window.formObject._token = window.Laravel.csrfToken;
     $("#formname").click(function () {
         $("#editingContent > div").hide();
-        formFunc.fill("formnode", window.formObject.elements[0]);
-        window.editingObject = window.formObject.elements[0];
-        $("#editingContent > .formnode").show();
+        formFunc.fill("formname", window.formObject);
+        window.editingObject = window.formObject;
+        $("#editingContent > .formname").show();
     });
 
     $("#submitForm").click(function(){

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Worldbuilder;
 
-use Illuminate\Routing\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 
