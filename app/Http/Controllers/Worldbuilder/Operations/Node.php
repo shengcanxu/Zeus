@@ -49,4 +49,20 @@ class Node
             $this->description = $element["name"];
         }
     }
+
+    public function toJson(){
+
+        $json = json_encode($this);
+        return $json;
+    }
+
+    public function fromJson($node){
+        $this->id = $node->id;
+        $this->type = $node->type;
+        $this->unique = $node->unique;
+        $this->name = $node->name;
+        $this->description = $node->description;
+        $this->columnType = $node->columnType;
+        $this->length = $node->length;
+    }
 }

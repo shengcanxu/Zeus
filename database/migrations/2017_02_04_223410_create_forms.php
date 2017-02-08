@@ -18,6 +18,8 @@ class CreateForms extends Migration
             $table->timestamps();
             $table->string("form_name",100)->unique();
             $table->integer("user_id");
+
+            $table->index("form_name");
         });
     }
 

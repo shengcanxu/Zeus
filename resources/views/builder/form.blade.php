@@ -8,20 +8,14 @@
 @section('content')
     <div id="content" class="container">
         <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Controls</div>
-                    <div class="panel-body">
-                        <a href="javascript:addTextBox()" class="btn btn-default">文本框</a>
-                        <a href="javascript:addCheckBox()" class="btn btn-default">单选框</a>
-                    </div>
-                </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">Form</div>
                     <div class="panel-body">
-                        <form id="{{$formName}}" action="{{url("/builder/")}}" method="post">
+                        <form id="{{$formName}}" action="{{$submitUrl}}" method="post">
                             <div>
-
+                                @foreach($nodes as $node)
+                                    {!! $node->htmlString() !!}
+                                @endforeach
                             </div>
                             <br/>
                             {!! csrf_field() !!}
@@ -32,24 +26,5 @@
                 </div>
             </div>
         </div>
-
-        <div id="nodes" style="display: none;">
-            <div class="textbox">
-                {!!$textBoxString!!}
-            </div>
-            <div class="checkbox">
-                {!! $checkBoxString !!}
-            </div>
-        </div>
-
-        <script language="javascript">
-            function addTextBox(){
-                $("#nodes .textbox").clone().appendTo($("#{{$formName}} > div"));
-            }
-
-            function addCheckBox(){
-                $("#nodes .checkbox").clone().appendTo($("#{{$formName}} > div"));
-            }
-        </script>
     </div>
 @endsection

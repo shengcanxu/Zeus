@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Worldbuilder;
 
+use App\FormNode;
 use App\Http\Controllers\Controller;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;

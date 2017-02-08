@@ -33,19 +33,11 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Worldbuilder', 'prefix' =>
     Route::post('/', 'HomeController@store');
     Route::get('/build', 'BuildController@index');
     Route::post('/build','BuildController@store');
+    Route::get('/test', 'BuildController@test');
 });
 
-
-
-Route::group(['prefix' => 'form_name'], function () {
-
-    Route::get('/',         ['as' => 'form_name.index',    'uses' => 'Form_NameController@index']);
-    Route::get('/{id}',     ['as' => 'form_name.show',     'uses' => 'Form_NameController@show']);
-    Route::get('/{id}/edit',['as' => 'form_name.edit',     'uses' => 'Form_NameController@edit']);
-    Route::post('/update',  ['as' => 'form_name.update',   'uses' => 'Form_NameController@update']);
-    Route::get('/create',   ['as' => 'form_name.create',   'uses' => 'Form_NameController@create']);
-    Route::get('/store',    ['as' => 'form_name.store',    'uses' => 'Form_NameController@store']);
-
+Route::group(['prefix' => 'form'],function(){
+    Route::get('/{name}', 'FormController@index');
 });
 
 

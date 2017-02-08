@@ -46,7 +46,10 @@ class CheckBox extends Node
         return $editingString;
     }
 
-    public function toJson(){
-        return "{'id':'" . $this->id . "','name':'" . $this->name . "','type':'" . $this->type . "'}";
+    public function fromJson($node)
+    {
+        parent::fromJson($node);
+
+        $this->elements = $node->elements;
     }
 }
