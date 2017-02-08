@@ -92,8 +92,8 @@ class BuilderOperation{
     {
         $filename = ucfirst($modelName) . 'Controller.php';
 
-        if ($this->files->exists(app_path('Http/Controllers/' .$modelName . '/' . $filename))) {
-            $this->files->delete(app_path('Http/Controllers/' .$modelName . '/' . $filename));
+        if ($this->files->exists(app_path('Http/Controllers/forms/' .$modelName . '/' . $filename))) {
+            $this->files->delete(app_path('Http/Controllers/forms/' .$modelName . '/' . $filename));
         }
 
         $stub = $this->files->get(__DIR__ . '/../template/controller.stub');
@@ -102,10 +102,10 @@ class BuilderOperation{
         $stub = str_replace('myModelInstance', Str::camel($modelName), $stub);
         $stub = str_replace('template', strtolower($modelName), $stub);
 
-        if(!$this->files->exists(app_path('Http/Controllers/'.$modelName))){
-            $this->files->makeDirectory(app_path('Http/Controllers/' . $modelName));
+        if(!$this->files->exists(app_path('Http/Controllers/forms/'.$modelName))){
+            $this->files->makeDirectory(app_path('Http/Controllers/forms/' . $modelName));
         }
-        $this->files->put(app_path('Http/Controllers/' .$modelName . '/' . $filename), $stub);
+        $this->files->put(app_path('Http/Controllers/forms/' .$modelName . '/' . $filename), $stub);
 
         info('Created controller ' . $filename);
 
@@ -148,13 +148,13 @@ class BuilderOperation{
 
         $filename = $modelName . '.php';
 
-        if ($this->files->exists(app_path('/' . $filename))) {
-            $this->files->delete(app_path('/' . $filename));
+        if ($this->files->exists(app_path('/' . 'models/' . $filename))) {
+            $this->files->delete(app_path('/'. 'models/' . $filename));
         }
 
         $model = $this->buildModel($name, $elements);
 
-        $this->files->put(app_path('/' . $filename), $model);
+        $this->files->put(app_path('/' . 'models/' . $filename), $model);
 
         info($modelName . ' Model created');
 
