@@ -41,7 +41,7 @@
                                 </li>
                             </ul>
                             <script language="javascript">
-                                var formName = {
+                                var formnameediting = {
                                     initialize : function () {
                                         if(editingObject["name"]){
                                             $("#formNameEditing").val(editingObject["name"]);

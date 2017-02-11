@@ -39,7 +39,6 @@ class TextView extends Node
 
     public function htmlString(){
         $textViewString = $this->files->get(__DIR__ . "/../template/textview.stub");
-        $textViewString = str_replace('TEXTVIEW_CONTENT', $this->name, $textViewString);
         return $textViewString;
     }
 

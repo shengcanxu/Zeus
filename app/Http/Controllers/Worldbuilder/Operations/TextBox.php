@@ -46,9 +46,7 @@ class TextBox extends Node
 
     public function htmlString(){
         $textBoxString = $this->files->get(__DIR__ . "/../template/textbox.stub");
-        $textBoxString = str_replace('TEXTBOX_DESCRIPTION', $this->name, $textBoxString);
-        $textBoxString = str_replace('TEXTBOX_NAME', $this->name, $textBoxString);
-        $textBoxString = str_replace('TEXTBOX_CONTENT', $this->content, $textBoxString);
+        $textBoxString = str_replace("{'OBJNAME':'OBJVALUE'}", json_encode($this),$textBoxString);
         return $textBoxString;
     }
 

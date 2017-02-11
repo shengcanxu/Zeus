@@ -21,14 +21,14 @@ class CheckBox extends Node
         $this->columnType = "string";
         $this->length = 1000;
         if(isset($elements["options"])){
-            $this->elements = $elements["options"];
+            $this->options = $elements["options"];
         }
     }
 
     public function addDefaultValue(){
         $this->name = "Title";
-        $this->elements[0] = "content1";
-        $this->elements[1] = "content2";
+        $this->options[0] = "content1";
+        $this->options[1] = "content2";
         return $this;
     }
 
@@ -42,23 +42,11 @@ class CheckBox extends Node
 
     public function htmlString(){
         $checkboxString = $this->files->get(__DIR__ . "/../template/checkbox.stub");
-        $checkboxString = str_replace('CHECKBOX_DESCRIPTION', $this->name, $checkboxString);
-
-        $options = "";
-        $optionTemplate = "    <input type='radio' name='" . $this->name . "' node='name'/> <label node='options'>CHECKBOX_CONTENT</label>\n";
-        foreach ($this->elements as $element){
-            $option = str_replace('CHECKBOX_CONTENT', $element, $optionTemplate);
-            $options = $options . $option . "<br/>";
-        }
-        $checkboxString = str_replace('CHECKBOX_OPTIONS', $options, $checkboxString);
-
         return $checkboxString;
     }
 
     public function editingString(){
         $editingString = $this->files->get(__DIR__ . "/../template/checkboxEditing.stub");
-
-        //<input type="text" name="checkbox_options" node="name" />
         return $editingString;
     }
 
@@ -66,6 +54,6 @@ class CheckBox extends Node
     {
         parent::fromJson($node);
 
-        $this->elements = $node->elements;
+        $this->options = $node->options;
     }
 }

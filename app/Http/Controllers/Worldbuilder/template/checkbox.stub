@@ -1,4 +1,44 @@
 <div class="checkbox">
-    <p node="nameView">CHECKBOX_DESCRIPTION</p>
-CHECKBOX_OPTIONS
+    <div style="display:none" id="checkbox_option_template">
+        <div>
+            <input class="option" type='radio' name='' value=''/>
+            <label></label>
+        </div>
+    </div>
+    <div id="checkbox_template" style="display:none">
+        <div style="position:relative;">
+            <p class="nameView"></p>
+            <div class="checkbox_options">
+
+            </div>
+        </div>
+    </div>
+
+    <script language="javascript">
+        var checkbox = {
+            initData:function (element) {
+                if(element["name"]){
+                    $("#checkbox_template p.nameview").text(element["name"]);
+                }
+                if(element["options"]){
+                    $("#checkbox_template div.checkbox_options").children().remove();
+                    for(var i=0; i<element["options"].length; i++){
+                        var div = $("#checkbox_option_template>div").clone();
+                        div.find("input.option").attr("name",element["name"]).attr("value",element["options"][i]);
+                        div.find("label").text(element["options"][i]);
+                        div.appendTo($("#checkbox_template div.checkbox_options"));
+                    }
+                }
+            },
+
+            generateNode: function (element, appendto) {
+                this.initData(element);
+
+                var div = $("#checkbox_template>div").clone();
+                div.attr("id",element["id"]);
+                div.appendTo(appendto);
+            }
+        }
+    </script>
+
 </div>

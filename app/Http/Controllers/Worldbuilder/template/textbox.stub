@@ -1,4 +1,36 @@
 <div class="textbox">
-    <p node="nameView">TEXTBOX_DESCRIPTION</p>
-    <input type='text' name="TEXTBOX_NAME" value="TEXTBOX_CONTENT" node="name"/>
+    <div id="textbox_template" style="display:none">
+        <div style="position:relative;">
+            <p class="nameView"></p>
+            <input class="textbox_name" type='text' name="" />
+        </div>
+    </div>
+
+    <script language="javascript">
+        var textbox = {
+            initData: function (element) {
+                if(element["name"]){
+                    $("#textbox_template p.nameview").text(element["name"]);
+                    $("#textbox_template input.textbox_name").attr("name",element["name"]);
+                }
+            },
+            generateNode: function (element, appendto) {
+                this.initData(element);
+
+                var div = $("#textbox_template>div").clone();
+                div.attr("id",element["id"]);
+                div.appendTo(appendto);
+            },
+
+            generateForm: function () {
+                var element = {'OBJNAME':'OBJVALUE'};
+                this.initData(element);
+
+                var div = $("#textbox_template>div").clone();
+                div.attr("id",element["id"]);
+                div.appendTo($("#textbox_template").parent());
+                $("#textbox_template").remove();
+            }
+        }
+    </script>
 </div>

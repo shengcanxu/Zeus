@@ -1,3 +1,25 @@
 <div class="textview">
-    <p node="contentView">TEXTVIEW_CONTENT</p>
+    <div id="textview_template" style="display:none">
+        <div style="position:relative;">
+            <p class="contentView">TEXTVIEW_CONTENT</p>
+        </div>
+    </div>
+
+    <script language="javascript">
+        var textview = {
+            initData: function (element) {
+                if(element["content"]){
+                    $("#textview_template p.contentView").text(element["content"]);
+                }
+            },
+
+            generateNode: function (element, appendto) {
+                this.initData(element);
+
+                var div = $("#textview_template>div").clone();
+                div.attr("id",element["id"]);
+                div.appendTo(appendto);
+            }
+        }
+    </script>
 </div>

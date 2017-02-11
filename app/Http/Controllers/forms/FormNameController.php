@@ -40,8 +40,8 @@ class FormNameController extends FormController
     public function store(Request $request)
     {
         $formName = new FormName();
-        $formName->textboxname = $request->get('textboxname');
-        $formName->checkboxname = $request->get('checkboxname');
+        $formName->Title2 = $request->get('Title2');
+        $formName->Title3 = $request->get('Title3');
         
 
         if($formName->save()){
