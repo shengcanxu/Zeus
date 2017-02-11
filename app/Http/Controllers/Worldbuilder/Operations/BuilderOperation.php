@@ -44,7 +44,7 @@ class BuilderOperation{
         $this->createModel($name, $elements);
         $this->createMigration($name);
         $this->createController($name);
-        //$this->appendRoutes($name);
+        $this->appendRoutes($name);
 
         Artisan::call("migrate");
 
@@ -130,7 +130,7 @@ class BuilderOperation{
 
         //check if exist already
         $routerString = $this->files->get(base_path('routes/web.php'));
-        if(strpos($routerString,"'prefix' => 'form/" . $formName . "'") !== false){
+        if(strpos($routerString,"Route::get('/".$formName."'") !== false){
             return;
         }
 

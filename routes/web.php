@@ -40,4 +40,3 @@ Route::group(['namespace' => 'Forms','prefix' => 'forms'], function () {
     Route::get('/FormName', 'FormNameController@index');
     Route::post('/FormName', 'FormNameController@store');
 });
-

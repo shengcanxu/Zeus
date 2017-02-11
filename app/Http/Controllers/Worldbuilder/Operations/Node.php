@@ -29,6 +29,9 @@ class Node
 
     public $length = 0;
 
+    /**
+     * @var bool 表示是不是需要创建数据库字段，是否需要用户输入
+     */
     public $inDB = true;
 
     public function __construct($element){
