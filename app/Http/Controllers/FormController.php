@@ -7,6 +7,7 @@ use App\FormNode;
 use App\Http\Controllers\Worldbuilder\CheckBox;
 use App\Http\Controllers\Worldbuilder\TextBox;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Worldbuilder\TextView;
 use Illuminate\Http\Request;
 
 class FormController extends Controller{
@@ -44,6 +45,10 @@ class FormController extends Controller{
                 $checkbox = new CheckBox([]);
                 $checkbox->fromJson($node);
                 return $checkbox;
+            case "textview":
+                $textview = new TextView([]);
+                $textview->fromJson($node);
+                return $textview;
         }
     }
 }

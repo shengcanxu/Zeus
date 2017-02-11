@@ -84,6 +84,10 @@ class BuilderOperation{
                     $checkbox = new CheckBox($element);
                     array_push($this->nodes, $checkbox);
                     break;
+                case "textview":
+                    $textview = new TextView($element);
+                    array_push($this->nodes, $textview);
+                    break;
             }
         }
     }
@@ -112,8 +116,10 @@ class BuilderOperation{
 
     private function buildControllerSave($instance){
         $result = "";
-        foreach($this->nodes as $node){
-            $result = $result . '$' . $instance . "->" . $node->name . " = \$request->get('" . $node->name . "');\n        ";
+        foreach($this->nodes as $node) {
+            if ($node->inDB) {
+                $result = $result . '$' . $instance . "->" . $node->name . " = \$request->get('" . $node->name . "');\n        ";
+            }
         }
         return $result;
     }

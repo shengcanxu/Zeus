@@ -13,7 +13,8 @@ class BuildController extends Controller{
     public function index(){
         $nodes = array(
             (new TextBox([]))->addDefaultValue(),
-            (new CheckBox([]))->addDefaultValue()
+            (new CheckBox([]))->addDefaultValue(),
+            (new TextView([]))->addDefaultValue()
         );
 
         return view("builder/build")

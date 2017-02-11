@@ -11,8 +11,16 @@ var formObject =  {
 };
 
 var formFunc = {
-    addTextBox: function (obj) {
-        $("#nodes .textbox").clone().appendTo(obj);
+    addTextView : function () {
+        window.formObject.elementIndex = window.formObject.elementIndex + 1;
+        window.formObject.elements.push({
+           "id":window.formObject.elementIndex,
+           "type":"textview",
+            "content":"textviewcontent"
+        });
+    },
+
+    addTextBox: function () {
         window.formObject.elementIndex = window.formObject.elementIndex+1;
         window.formObject.elements.push({
             "id":window.formObject.elementIndex,
@@ -66,6 +74,9 @@ var formFunc = {
         if(element["name"]){
             $("input[node='name']").val(element["name"]);
         }
+        if(element["content"]){
+            $("input[node='content']").val(element["content"]);
+        }
     }
 
 };
@@ -94,6 +105,11 @@ $().ready(function(){
         formFunc.addControl("checkbox");
     });
 
+    $("#addTextView").click(function () {
+        formFunc.addTextView();
+        formFunc.addControl("textview");
+    })
+
 });
 
 $().ready(function () {
@@ -101,6 +117,9 @@ $().ready(function () {
     $("input[node='name']" ).change(function () {
         window.editingObject["name"] = $(this).val();
     });
+    $("input[node='content'").change(function () {
+        window.editingObject["content"] = $(this).val();
+    })
 
 });
 

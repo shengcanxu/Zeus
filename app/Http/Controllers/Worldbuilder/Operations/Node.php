@@ -29,6 +29,8 @@ class Node
 
     public $length = 0;
 
+    public $inDB = true;
+
     public function __construct($element){
         $this->files = new Filesystem();
 

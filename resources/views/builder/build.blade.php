@@ -14,6 +14,7 @@
                     <div class="panel-body">
                         <a href="#" id="addTextBox" class="btn btn-default">文本框</a>
                         <a href="#" id="addCheckBox" class="btn btn-default">单选框</a>
+                        <a href="#" id="addTextView" class="btn btn-default">文本</a>
                     </div>
                 </div>
                 <div class="panel panel-default">

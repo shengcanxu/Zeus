@@ -1,0 +1,8 @@
+<div class="textview" style="display:none">
+    <ul>
+        <li>
+            <p>显示内容</p>
+            <input type="text" name="textview_content" id="textbox_name" node="content"/>
+        </li>
+    </ul>
+</div>
