@@ -11,7 +11,7 @@ namespace App\Http\Controllers\Worldbuilder;
 
 class CheckBox extends Node
 {
-    public $elements = [];
+    public $options = [];
 
     public function __construct($elements){
         parent::__construct($elements);
@@ -20,8 +20,8 @@ class CheckBox extends Node
 
         $this->columnType = "string";
         $this->length = 1000;
-        if(isset($elements["elements"])){
-            $this->elements = $elements["elements"];
+        if(isset($elements["options"])){
+            $this->elements = $elements["options"];
         }
     }
 
@@ -45,10 +45,10 @@ class CheckBox extends Node
         $checkboxString = str_replace('CHECKBOX_DESCRIPTION', $this->name, $checkboxString);
 
         $options = "";
-        $optionTemplate = "    <input type='radio' name='" . $this->name . "' node='name' value='CHECKBOX_CONTENT' /> CHECKBOX_CONTENT\n";
+        $optionTemplate = "    <input type='radio' name='" . $this->name . "' node='name'/> <label node='options'>CHECKBOX_CONTENT</label>\n";
         foreach ($this->elements as $element){
             $option = str_replace('CHECKBOX_CONTENT', $element, $optionTemplate);
-            $options = $options . $option;
+            $options = $options . $option . "<br/>";
         }
         $checkboxString = str_replace('CHECKBOX_OPTIONS', $options, $checkboxString);
 
@@ -57,6 +57,8 @@ class CheckBox extends Node
 
     public function editingString(){
         $editingString = $this->files->get(__DIR__ . "/../template/checkboxEditing.stub");
+
+        //<input type="text" name="checkbox_options" node="name" />
         return $editingString;
     }
 

@@ -5,4 +5,19 @@
             <input type="text" name="textbox_name" id="textbox_name" node="name"/>
         </li>
     </ul>
+    <script language="javascript">
+        var textbox = {
+            initialize : function () {
+                var element = window.editingObject;
+                if(element["name"]){
+                    $("#textbox_name").val(element["name"]);
+                }
+                $("#confirmEditing").attr("node","textbox");
+            },
+            confirm : function () {
+                editingObject["name"] = $("#textbox_name").val();
+                formFunc.refresh();
+            }
+        }
+    </script>
 </div>

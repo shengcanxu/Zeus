@@ -18,6 +18,7 @@ var formFunc = {
            "type":"textview",
             "content":"TitleView Description"
         });
+        this.addControl("textview");
     },
 
     addTextBox: function () {
@@ -25,9 +26,10 @@ var formFunc = {
         window.formObject.elements.push({
             "id":window.formObject.elementIndex,
             "type":"textbox",
-            "name":$("#nodes .textbox p[node='nameView']").text(),
+            "name":"Title2",
             "content":"textboxcontent"
         });
+        this.addControl("textbox");
     },
 
     addCheckBox : function () {
@@ -35,9 +37,10 @@ var formFunc = {
         window.formObject.elements.push({
             "id" : window.formObject.elementIndex,
             "type" : "checkbox",
-            "name" : $("#nodes .checkbox p[node='nameView']").text(),
-            "elements": ["checkbox_content1", "checkbox_content2"]
+            "name" : "Title3",
+            "options": ["checkbox_content1", "checkbox_content2"]
         });
+        this.addControl("checkbox");
     },
 
     addControl : function (type) {
@@ -47,6 +50,7 @@ var formFunc = {
             "<div class='handle' style='position:absolute;top:0;left:0;width:100%;height:100%;'" +
             "</div>"
         $(html).appendTo($("#formcontent"));
+        formFunc.refresh();
 
         $(".handle").click(function () {
             var type = $(this).parent().attr("class");
@@ -63,31 +67,39 @@ var formFunc = {
                 }
             }
             if(index >= 0){
-                formFunc.fill(type, elements[index]);
                 window.editingObject = elements[index];
+                eval(type+".initialize()");
                 $("#editingContent ."+type).show();
             }
         })
     },
 
-    fill : function (type, element) {
-        if(element["name"]){
-            $("#editing input[node='name']").val(element["name"]);
-        }
-        if(element["content"]){
-            $("#editing input[node='content']").val(element["content"]);
+    refresh : function(){
+        $("#formname").text(formObject.name);
+        var elements = formObject.elements;
+        for(var i=0; i<elements.length; i++){
+            var id = elements[i].id;
+
+            if(elements[i]["name"]){
+                $("#" + id + " p[node='nameView']").text(elements[i]["name"])
+                $("#" + id + " input[node='name']").attr("name", elements[i]["name"]);
+            }
+            if(elements[i]["content"]){
+                $("#" + id + " p[node='contentView']").text(elements[i]["content"]);
+            }
         }
     }
-
 };
 
 
 $().ready(function(){
     window.formObject._token = window.Laravel.csrfToken;
+    formFunc.refresh();
+
     $("#formname").click(function () {
         $("#editingContent > div").hide();
-        formFunc.fill("formname", window.formObject);
         window.editingObject = window.formObject;
+        window.formName.initialize();
         $("#editingContent > .formname").show();
     });
 
@@ -95,42 +107,45 @@ $().ready(function(){
         $.post("/learnlaravel/public/worldbuilder/build", window.formObject);
     });
 
+    $("#confirmEditing").click(function () {
+        node = $(this).attr("node");
+        eval(node+".confirm()");
+    });
+
     $("#addTextBox").click(function () {
         formFunc.addTextBox();
-        formFunc.addControl("textbox");
     });
 
     $("#addCheckBox").click(function () {
         formFunc.addCheckBox();
-        formFunc.addControl("checkbox");
     });
 
     $("#addTextView").click(function () {
         formFunc.addTextView();
-        formFunc.addControl("textview");
     })
 
 });
 
+//editing functions
 $().ready(function () {
-    // editing
-    $("#editing input[node='name']" ).change(function () {
-        nameValue = $(this).val();
-        window.editingObject["name"] = nameValue;
-        id = window.editingObject.id;
-        if(window.editingObject === window.formObject){
-            $("#formname").text(nameValue);
-        }else {
-            $("#" + id + " p[node='nameView']").text(nameValue)
-            $("#" + id + " input[node='name']").attr("name", nameValue);
-        }
-    });
-    $("#editing input[node='content']").change(function () {
-        nameValue = $(this).val();
-        window.editingObject["content"] = nameValue;
-        id = window.editingObject.id;
-        $("#" + id + " p[node='contentView']").text(nameValue);
-    })
+    // // editing
+    // $("#editing input[node='name']" ).change(function () {
+    //     nameValue = $(this).val();
+    //     window.editingObject["name"] = nameValue;
+    //     id = window.editingObject.id;
+    //     if(window.editingObject === window.formObject){
+    //         $("#formname").text(nameValue);
+    //     }else {
+    //         $("#" + id + " p[node='nameView']").text(nameValue)
+    //         $("#" + id + " input[node='name']").attr("name", nameValue);
+    //     }
+    // });
+    // $("#editing input[node='content']").change(function () {
+    //     nameValue = $(this).val();
+    //     window.editingObject["content"] = nameValue;
+    //     id = window.editingObject.id;
+    //     $("#" + id + " p[node='contentView']").text(nameValue);
+    // })
 
 });
 

@@ -2,7 +2,23 @@
     <ul>
         <li>
             <p>显示内容</p>
-            <input type="text" name="textview_content" id="textbox_name" node="content"/>
+            <input type="text" name="textview_content" id="textview_content" node="content"/>
         </li>
     </ul>
+
+    <script language="javascript">
+        var textview = {
+            initialize : function () {
+                var element = window.editingObject;
+                if(element["content"]){
+                    $("#textview_content").val(element["content"]);
+                }
+                $("#confirmEditing").attr("node","textview");
+            },
+            confirm : function () {
+                editingObject["content"] = $("#textview_content").val();
+                formFunc.refresh();
+            }
+        }
+    </script>
 </div>

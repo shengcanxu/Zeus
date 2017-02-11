@@ -21,6 +21,13 @@
                 </li>
             @endforeach
         </ul>
+        <div>
+            <div>
+                <script language="JavaScript">
+                    $("<p>testing</p>").appendTo($("#content"));
+                </script>
+            </div>
+        </div>
     </div>
 
 @endsection

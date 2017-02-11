@@ -37,13 +37,30 @@
                             <ul>
                                 <li>
                                     <p>名称</p>
-                                    <input type="text" name="textbox_name" id="textbox_name" node="name"/>
+                                    <input type="text" name="form_name" id="formNameEditing" node="name"/>
                                 </li>
                             </ul>
+                            <script language="javascript">
+                                var formName = {
+                                    initialize : function () {
+                                        if(editingObject["name"]){
+                                            $("#formNameEditing").val(editingObject["name"]);
+                                        }
+                                        $("#confirmEditing").attr("node","formName");
+                                    },
+                                    confirm : function () {
+                                        editingObject["name"] = $("#formNameEditing").val();
+                                        formFunc.refresh();
+                                    }
+                                }
+                            </script>
                         </div>
                         @foreach($nodes as $node)
                             {!! $node->editingString() !!}
                         @endforeach
+                    </div>
+                    <div style="text-align:center;">
+                        <a href="#" class="btn btn-default" id="confirmEditing" node="">确定</a>
                     </div>
                 </div>
             </div>

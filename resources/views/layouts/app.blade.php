@@ -20,6 +20,9 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+    <!-- Scripts -->
+    <script src="/learnlaravel/public/js/jquery-3.1.1.js"></script>
+    <script src="/learnlaravel/public/js/bootstrap.js"></script>
 </head>
 <body>
     <div id="app">
@@ -82,8 +85,6 @@
         @yield('content')
     </div>
 
-    <!-- Scripts -->
-    <script src="/learnlaravel/public/js/bootstrap.js"></script>
-    <script src="/learnlaravel/public/js/jquery-3.1.1.js"></script>
+
 </body>
 </html>

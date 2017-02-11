@@ -6,7 +6,22 @@
         </li>
         <li>
             <p>选项</p>
-
+                CHECKBOX_OPTIONS
         </li>
     </ul>
+    <script language="JavaScript">
+        var checkbox = {
+            initialize : function () {
+                var element = window.editingObject;
+                if(element["name"]){
+                    $("#checkbox_name").val(element["name"]);
+                }
+                $("#confirmEditing").attr("node","checkbox");
+            },
+            confirm : function () {
+                editingObject["name"] = $("#checkbox_name").val();
+                formFunc.refresh();
+            }
+        }
+    </script>
 </div>
