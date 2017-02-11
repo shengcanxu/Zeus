@@ -1,4 +1,4 @@
 <div class="checkbox">
-    <p>CHECKBOX_DESCRIPTION</p>
+    <p node="nameView">CHECKBOX_DESCRIPTION</p>
 CHECKBOX_OPTIONS
 </div>

@@ -33,7 +33,6 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Worldbuilder', 'prefix' =>
     Route::post('/', 'HomeController@store');
     Route::get('/build', 'BuildController@index');
     Route::post('/build','BuildController@store');
-    Route::get('/test', 'BuildController@test');
 });
 
 Route::group(['namespace' => 'Forms','prefix' => 'forms'], function () {

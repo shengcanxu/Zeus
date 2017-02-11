@@ -18,7 +18,7 @@ class BuildController extends Controller{
         );
 
         return view("builder/build")
-            ->with("formName", "testForm")
+            ->with("formName", "FormName")
             ->with("nodes",$nodes);
 
     }

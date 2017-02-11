@@ -12,13 +12,13 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Controls</div>
                     <div class="panel-body">
+                        <a href="#" id="addTextView" class="btn btn-default">文本</a>
                         <a href="#" id="addTextBox" class="btn btn-default">文本框</a>
                         <a href="#" id="addCheckBox" class="btn btn-default">单选框</a>
-                        <a href="#" id="addTextView" class="btn btn-default">文本</a>
                     </div>
                 </div>
                 <div class="panel panel-default">
-                    <div class="panel-heading" id="formname">FORM_NAME</div>
+                    <div class="panel-heading" id="formname">{{$formName}}</div>
                     <div class="panel-body">
                         <div id="formcontent">
 

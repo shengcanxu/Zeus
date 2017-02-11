@@ -45,7 +45,7 @@ class CheckBox extends Node
         $checkboxString = str_replace('CHECKBOX_DESCRIPTION', $this->name, $checkboxString);
 
         $options = "";
-        $optionTemplate = "    <input type='radio' name='" . $this->name . "' value='CHECKBOX_CONTENT' /> CHECKBOX_CONTENT\n";
+        $optionTemplate = "    <input type='radio' name='" . $this->name . "' node='name' value='CHECKBOX_CONTENT' /> CHECKBOX_CONTENT\n";
         foreach ($this->elements as $element){
             $option = str_replace('CHECKBOX_CONTENT', $element, $optionTemplate);
             $options = $options . $option;

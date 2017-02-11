@@ -16,7 +16,7 @@ var formFunc = {
         window.formObject.elements.push({
            "id":window.formObject.elementIndex,
            "type":"textview",
-            "content":"textviewcontent"
+            "content":"TitleView Description"
         });
     },
 
@@ -25,7 +25,7 @@ var formFunc = {
         window.formObject.elements.push({
             "id":window.formObject.elementIndex,
             "type":"textbox",
-            "name":"textboxname",
+            "name":$("#nodes .textbox p[node='nameView']").text(),
             "content":"textboxcontent"
         });
     },
@@ -35,7 +35,7 @@ var formFunc = {
         window.formObject.elements.push({
             "id" : window.formObject.elementIndex,
             "type" : "checkbox",
-            "name" : "checkboxname",
+            "name" : $("#nodes .checkbox p[node='nameView']").text(),
             "elements": ["checkbox_content1", "checkbox_content2"]
         });
     },
@@ -72,10 +72,10 @@ var formFunc = {
 
     fill : function (type, element) {
         if(element["name"]){
-            $("input[node='name']").val(element["name"]);
+            $("#editing input[node='name']").val(element["name"]);
         }
         if(element["content"]){
-            $("input[node='content']").val(element["content"]);
+            $("#editing input[node='content']").val(element["content"]);
         }
     }
 
@@ -114,11 +114,22 @@ $().ready(function(){
 
 $().ready(function () {
     // editing
-    $("input[node='name']" ).change(function () {
-        window.editingObject["name"] = $(this).val();
+    $("#editing input[node='name']" ).change(function () {
+        nameValue = $(this).val();
+        window.editingObject["name"] = nameValue;
+        id = window.editingObject.id;
+        if(window.editingObject === window.formObject){
+            $("#formname").text(nameValue);
+        }else {
+            $("#" + id + " p[node='nameView']").text(nameValue)
+            $("#" + id + " input[node='name']").attr("name", nameValue);
+        }
     });
-    $("input[node='content'").change(function () {
-        window.editingObject["content"] = $(this).val();
+    $("#editing input[node='content']").change(function () {
+        nameValue = $(this).val();
+        window.editingObject["content"] = nameValue;
+        id = window.editingObject.id;
+        $("#" + id + " p[node='contentView']").text(nameValue);
     })
 
 });

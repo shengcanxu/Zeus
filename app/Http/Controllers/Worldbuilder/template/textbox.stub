@@ -1,4 +1,4 @@
 <div class="textbox">
-    <p>TEXTBOX_DESCRIPTION</p>
-    <input type='text' name="TEXTBOX_NAME" value="TEXTBOX_CONTENT" />
+    <p node="nameView">TEXTBOX_DESCRIPTION</p>
+    <input type='text' name="TEXTBOX_NAME" value="TEXTBOX_CONTENT" node="name"/>
 </div>
