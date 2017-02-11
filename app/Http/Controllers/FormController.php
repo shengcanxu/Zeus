@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class FormController extends Controller{
 
-    public function index(Request $request, $formName){
+    public function show(Request $request, $formName){
         $formClass = new Form();
         $form = $formClass->where("form_name","=",$formName)->first();
 
@@ -27,12 +27,11 @@ class FormController extends Controller{
 
             return view("builder/form")
                 ->with('formName', $formName)
-                ->with('submitUrl', url('/form/'.$formName))
+                ->with('submitUrl', url('/forms/'.$formName))
                 ->with('nodes', $sortedNodes);
         }else{
             return "Error: No Form with name: " . $formName;
         }
-
     }
 
     private function fillNodeObject($node){

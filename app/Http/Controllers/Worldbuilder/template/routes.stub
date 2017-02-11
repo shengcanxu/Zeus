@@ -1,5 +1,6 @@
 
 
-Route::group(['prefix' => 'form/|MODEL_NAME|'], function () {
-    Route::get('/',         ['as' => '|MODEL_NAME|.index',    'uses' => '|CONTROLLER_NAME|@index']);
+Route::group(['namespace' => 'Forms','prefix' => 'forms'], function () {
+    Route::get('/{name}',         ['as' => '|MODEL_NAME|.index',    'uses' => '|CONTROLLER_NAME|@index']);
+    Route::post('/',         ['as' => '|MODEL_NAME|.store',    'uses' => '|CONTROLLER_NAME|@store']);
 });

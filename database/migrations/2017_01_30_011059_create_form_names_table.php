@@ -17,8 +17,8 @@ class CreateFormNamesTable extends Migration
         Schema::create('form_names', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-            $table->string('textboxname', 100);
-            $table->integer('checkboxname');
+            $table->string('textboxname', 1000);
+            $table->string('checkboxname', 1000);
             
         });
     }

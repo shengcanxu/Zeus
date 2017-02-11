@@ -6,12 +6,12 @@ use App\Http\Controllers\FormController;
 use App\Models\FormName;
 use Illuminate\Http\Request;
 
-class MyModelClassController extends FormController
+class FormNameController extends FormController
 {
     /**
-     * @var MyModelClass
+     * @var FormName
      */
-    private $formName = "MyModelClass";
+    private $formName = "FormName";
 
     public function index(Request $request)
     {
@@ -20,7 +20,7 @@ class MyModelClassController extends FormController
 
 
     /**
-     * Update an existing MyModelClass instance.
+     * Update an existing FormName instance.
      *
      * @param Request $request
      */
@@ -30,19 +30,21 @@ class MyModelClassController extends FormController
     }
 
     /**
-     * Display the form to create a new MyModelClass.
+     * Display the form to create a new FormName.
      */
     public function create()
     {
-        // return view('template.create');
+        // return view('formname.create');
     }
 
     public function store(Request $request)
     {
-        $myModelInstance = new MyModelClass();
-        myModelFill
+        $formName = new FormName();
+        $formName->textboxname = $request->get('textboxname');
+        $formName->checkboxname = $request->get('checkboxname');
+        
 
-        if($myModelInstance->save()){
+        if($formName->save()){
             return "save " . $this->formName . " successfully";
         }else{
             return "fail to save " . $this->formName;

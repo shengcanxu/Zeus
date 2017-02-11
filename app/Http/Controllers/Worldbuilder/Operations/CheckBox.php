@@ -18,10 +18,18 @@ class CheckBox extends Node
 
         $this->type = "checkbox";
 
-        $this->columnType = "integer";
+        $this->columnType = "string";
+        $this->length = 1000;
         if(isset($elements["elements"])){
             $this->elements = $elements["elements"];
         }
+    }
+
+    public function addDefaultValue(){
+        $this->name = "Title";
+        $this->elements[0] = "content1";
+        $this->elements[1] = "content2";
+        return $this;
     }
 
     public function migrationText(){
@@ -34,9 +42,15 @@ class CheckBox extends Node
 
     public function htmlString(){
         $checkboxString = $this->files->get(__DIR__ . "/../template/checkbox.stub");
-        $checkboxString = str_replace('CHECKBOX_DESCRIPTION', "Title", $checkboxString);
-        $checkboxString = str_replace('CHECKBOX_CONTENT1', "content1", $checkboxString);
-        $checkboxString = str_replace('CHECKBOX_CONTENT2', "content2", $checkboxString);
+        $checkboxString = str_replace('CHECKBOX_DESCRIPTION', $this->name, $checkboxString);
+
+        $options = "";
+        $optionTemplate = "    <input type='radio' name='" . $this->name . "' value='CHECKBOX_CONTENT' /> CHECKBOX_CONTENT\n";
+        foreach ($this->elements as $element){
+            $option = str_replace('CHECKBOX_CONTENT', $element, $optionTemplate);
+            $options = $options . $option;
+        }
+        $checkboxString = str_replace('CHECKBOX_OPTIONS', $options, $checkboxString);
 
         return $checkboxString;
     }

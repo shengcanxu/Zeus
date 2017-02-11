@@ -20,7 +20,7 @@ class TextBox extends Node
 
         $this->type = "textbox";
         $this->columnType = "string";
-        $this->length = 100;
+        $this->length = 1000;
 
         if(isset($elements["length"])){
             $this->length = (int) $elements["length"];
@@ -29,6 +29,11 @@ class TextBox extends Node
         if(isset($elements["content"])){
             $this->content = $elements["content"];
         }
+    }
+
+    public function addDefaultValue(){
+        $this->name = "Title";
+        return $this;
     }
 
     public function migrationText(){
@@ -41,8 +46,9 @@ class TextBox extends Node
 
     public function htmlString(){
         $textBoxString = $this->files->get(__DIR__ . "/../template/textbox.stub");
-        $textBoxString = str_replace('TEXTBOX_DESCRIPTION', "Title", $textBoxString);
-        $textBoxString = str_replace('TEXTBOX_CONTENT', "", $textBoxString);
+        $textBoxString = str_replace('TEXTBOX_DESCRIPTION', $this->name, $textBoxString);
+        $textBoxString = str_replace('TEXTBOX_NAME', $this->name, $textBoxString);
+        $textBoxString = str_replace('TEXTBOX_CONTENT', $this->content, $textBoxString);
         return $textBoxString;
     }
 

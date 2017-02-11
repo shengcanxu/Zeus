@@ -36,9 +36,8 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Worldbuilder', 'prefix' =>
     Route::get('/test', 'BuildController@test');
 });
 
-Route::group(['prefix' => 'form'],function(){
-    Route::get('/{name}', 'FormController@index');
+Route::group(['namespace' => 'Forms','prefix' => 'forms'], function () {
+    Route::get('/FormName', 'FormNameController@index');
+    Route::post('/FormName', 'FormNameController@store');
 });
-
-
 

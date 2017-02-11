@@ -5,7 +5,7 @@
 
 var formObject =  {
     elementIndex : 0,
-    name : "Form_Name",
+    name : "FormName",
     elements : [],
     _token : ""
 };

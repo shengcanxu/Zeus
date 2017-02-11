@@ -44,7 +44,7 @@ class BuilderOperation{
         $this->createModel($name, $elements);
         $this->createMigration($name);
         $this->createController($name);
-        $this->appendRoutes($name);
+        //$this->appendRoutes($name);
 
         Artisan::call("migrate");
 
@@ -92,8 +92,8 @@ class BuilderOperation{
     {
         $filename = ucfirst($modelName) . 'Controller.php';
 
-        if ($this->files->exists(app_path('Http/Controllers/forms/' .$modelName . '/' . $filename))) {
-            $this->files->delete(app_path('Http/Controllers/forms/' .$modelName . '/' . $filename));
+        if ($this->files->exists(app_path('Http/Controllers/forms/' . '/' . $filename))) {
+            $this->files->delete(app_path('Http/Controllers/forms/' . '/' . $filename));
         }
 
         $stub = $this->files->get(__DIR__ . '/../template/controller.stub');
@@ -101,31 +101,36 @@ class BuilderOperation{
         $stub = str_replace('MyModelClass', ucfirst($modelName), $stub);
         $stub = str_replace('myModelInstance', Str::camel($modelName), $stub);
         $stub = str_replace('template', strtolower($modelName), $stub);
+        $stub = str_replace('myModelFill', $this->buildControllerSave(Str::camel($modelName)),$stub);
 
-        if(!$this->files->exists(app_path('Http/Controllers/forms/'.$modelName))){
-            $this->files->makeDirectory(app_path('Http/Controllers/forms/' . $modelName));
-        }
-        $this->files->put(app_path('Http/Controllers/forms/' .$modelName . '/' . $filename), $stub);
+        $this->files->put(app_path('Http/Controllers/forms/' . '/' . $filename), $stub);
 
         info('Created controller ' . $filename);
 
         return true;
     }
 
-    private function appendRoutes($modelName)
+    private function buildControllerSave($instance){
+        $result = "";
+        foreach($this->nodes as $node){
+            $result = $result . '$' . $instance . "->" . $node->name . " = \$request->get('" . $node->name . "');\n        ";
+        }
+        return $result;
+    }
+
+    private function appendRoutes($formName)
     {
-        $modelTitle = ucfirst($modelName);
-        $modelName = strtolower($modelName);
+        $modelTitle = ucfirst($formName);
 
         //check if exist already
         $routerString = $this->files->get(base_path('routes/web.php'));
-        if($routerString.containsString("'prefix' => 'form_name'")){
+        if(strpos($routerString,"'prefix' => 'form/" . $formName . "'") !== false){
             return;
         }
 
         $newRoutes = $this->files->get(__DIR__ . '/../template/routes.stub');
         $newRoutes = str_replace('|MODEL_TITLE|', $modelTitle, $newRoutes);
-        $newRoutes = str_replace('|MODEL_NAME|', $modelName, $newRoutes);
+        $newRoutes = str_replace('|MODEL_NAME|', $formName, $newRoutes);
         $newRoutes = str_replace('|CONTROLLER_NAME|', $modelTitle . 'Controller', $newRoutes);
 
         $this->files->append(
@@ -148,13 +153,13 @@ class BuilderOperation{
 
         $filename = $modelName . '.php';
 
-        if ($this->files->exists(app_path('/' . 'models/' . $filename))) {
-            $this->files->delete(app_path('/'. 'models/' . $filename));
+        if ($this->files->exists(app_path('models/' . $filename))) {
+            $this->files->delete(app_path('models/' . $filename));
         }
 
         $model = $this->buildModel($name, $elements);
 
-        $this->files->put(app_path('/' . 'models/' . $filename), $model);
+        $this->files->put(app_path('models/' . $filename), $model);
 
         info($modelName . ' Model created');
 
@@ -171,13 +176,14 @@ class BuilderOperation{
 
     private function createMigration($name)
     {
-        $filename = '2017_01_30_011059_create_' . Str::plural(Str::snake($name)) . '_table.php';
+        $snakeName = Str::plural(Str::snake($name));
+        $filename = '2017_01_30_011059_create_' . $snakeName . '_table.php';
 
         if ($this->files->exists(database_path('/migrations/' . $filename))) {
             $this->files->delete(database_path('/migrations/' . $filename));
         }
 
-        $migration = $this->buildMigration($name,$filename);
+        $migration = $this->buildMigration($snakeName,$filename);
 
         $this->files->put(
             database_path('/migrations/' . $filename),
