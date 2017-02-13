@@ -80,6 +80,10 @@ class BuilderOperation{
                     $textbox = new TextBox($element);
                     array_push($this->nodes, $textbox);
                     break;
+                case "radiobox":
+                    $radiobox = new RadioBox($element);
+                    array_push($this->nodes, $radiobox);
+                    break;
                 case "checkbox":
                     $checkbox = new CheckBox($element);
                     array_push($this->nodes, $checkbox);

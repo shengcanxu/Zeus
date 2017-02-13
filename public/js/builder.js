@@ -28,11 +28,20 @@ var formFunc = {
         });
     },
 
+    addRadioBox : function () {
+        this.addControl({
+            "id" : formObject.elementIndex,
+            "type" : "radiobox",
+            "name" : "Title3",
+            "options": ["radiobox_content1", "radiobox_content2"]
+        });
+    },
+
     addCheckBox : function () {
         this.addControl({
             "id" : formObject.elementIndex,
             "type" : "checkbox",
-            "name" : "Title3",
+            "name" : "Title4",
             "options": ["checkbox_content1", "checkbox_content2"]
         });
     },
@@ -93,6 +102,10 @@ $().ready(function(){
 
     $("#addTextBox").click(function () {
         formFunc.addTextBox();
+    });
+
+    $("#addRadioBox").click(function () {
+        formFunc.addRadioBox();
     });
 
     $("#addCheckBox").click(function () {

@@ -42,6 +42,7 @@ class FormNameController extends FormController
         $formName = new FormName();
         $formName->Title2 = $request->get('Title2');
         $formName->Title3 = $request->get('Title3');
+        $formName->Title4 = $request->get('Title4');
         
 
         $failString = $this->valueCheck($request, $this->formName);

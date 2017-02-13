@@ -1,61 +1,61 @@
-<div class="checkbox">
-    <div style="display:none" id="checkbox_option_template">
+<div class="radiobox">
+    <div style="display:none" id="radiobox_option_template">
         <div>
-            <input class="option" type='checkbox' name='' value=''/>
+            <input class="option" type='radio' name='' value=''/>
             <label></label>
         </div>
     </div>
-    <div id="checkbox_template" style="display:none">
+    <div id="radiobox_template" style="display:none">
         <div style="position:relative;">
             <div>
                 <span class="nameView"></span>
                 <b class="required" style="color:red;display:none;">*</b>
             </div>
-            <div class="checkbox_options">
+            <div class="radiobox_options">
 
             </div>
-            <div id="checkbox_option_others" style="display: none">
-                <input type="radio" class="checkbox_defaultvalue" name="checkbox_options" disabled />
+            <div id="radiobox_option_others" style="display: none">
+                <input type="radio" class="radiobox_defaultvalue" name="radiobox_options" disabled />
                 <label>其他</label>
-                <input type='text' class='checkbox_options' value='' disabled/>
+                <input type='text' class='radiobox_options' value='' disabled/>
             </div>
         </div>
     </div>
 
     <script language="javascript">
-        var checkbox = {
+        var radiobox = {
             initData:function (element) {
                 if(element["name"]){
-                    $("#checkbox_template span.nameview").text(element["name"]);
+                    $("#radiobox_template span.nameview").text(element["name"]);
                 }
                 if(element["required"]==true){
-                    $("#checkbox_template b.required")[0].style.display = "inline";
+                    $("#radiobox_template b.required")[0].style.display = "inline";
                 }else{
-                    $("#checkbox_template b.required")[0].style.display = "none";
+                    $("#radiobox_template b.required")[0].style.display = "none";
                 }
                 if(element["options"]){
-                    $("#checkbox_template div.checkbox_options").children().remove();
+                    $("#radiobox_template div.radiobox_options").children().remove();
                     for(var i=0; i<element["options"].length; i++){
-                        var div = $("#checkbox_option_template>div").clone();
+                        var div = $("#radiobox_option_template>div").clone();
                         div.find("input.option").attr("name",element["name"]).attr("value",element["options"][i]);
                         div.find("label").text(element["options"][i]);
                         if(element["defaultValue"] && element["defaultValue"]==element["options"][i]){
                             div.find("input.option").prop("checked",true);
                         }
-                        div.appendTo($("#checkbox_template div.checkbox_options"));
+                        div.appendTo($("#radiobox_template div.radiobox_options"));
                     }
                 }
                 if(element["allowOthers"]){
-                    $("#checkbox_option_others")[0].style.display = "block";
+                    $("#radiobox_option_others")[0].style.display = "block";
                 }else{
-                    $("#checkbox_option_others")[0].style.display = "none";
+                    $("#radiobox_option_others")[0].style.display = "none";
                 }
             },
 
             generateNode: function (element, appendto) {
                 this.initData(element);
 
-                var div = $("#checkbox_template>div").clone();
+                var div = $("#radiobox_template>div").clone();
                 div.attr("id",element["id"]);
                 div.appendTo(appendto);
             }

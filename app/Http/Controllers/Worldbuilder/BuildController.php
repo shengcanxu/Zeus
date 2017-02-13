@@ -13,6 +13,7 @@ class BuildController extends Controller{
     public function index(){
         $nodes = array(
             (new TextBox([]))->addDefaultValue(),
+            (new RadioBox([]))->addDefaultValue(),
             (new CheckBox([]))->addDefaultValue(),
             (new TextView([]))->addDefaultValue()
         );

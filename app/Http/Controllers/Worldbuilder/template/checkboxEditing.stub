@@ -1,7 +1,7 @@
 <div id="checkboxE" style="display:none">
     <div style="display:none" id="checkboxE_template">
         <div>
-            <input type="radio" class="checkboxE_defaultvalue" name="checkboxE_options"/>
+            <input type="checkbox" class="checkboxE_defaultvalue" name="checkboxE_options"/>
             <input type='text' class='checkboxE_options' value=''/>
             <input type='button' class='optionE_options_delete' value='delete'/>
         </div>
@@ -14,7 +14,7 @@
         <li>
             <p>配置</p>
             <input  type="checkbox" name="checkboxE_required" id="checkboxE_required" /> 必填 <br/>
-            <input type="checkbox" name="checkbox_option_allowothers" id="checkbox_option_allowothers" />允许其他值 <br/>
+            <input type="checkbox" name="checkboxE_option_allowothers" id="checkboxE_option_allowothers" />允许其他值 <br/>
         </li>
         <li>
             <p>选项　&absp;&absp;<input type="button" value="增加" id="checkboxE_options_add"></p>
@@ -22,7 +22,7 @@
 
             </div>
             <div id="checkboxE_option_others" style="display: none">
-                <input type="radio" class="checkboxE_defaultvalue" name="checkboxE_options" disabled />
+                <input type="checkbox" class="checkboxE_defaultvalue" name="checkboxE_options" disabled />
                 <label>其他</label>
                 <input type='text' class='checkboxE_options' value='' disabled/>
             </div>
@@ -56,9 +56,9 @@
                     }
                 }
                 if(element["allowOthers"]){
-                    $("#checkbox_option_allowothers").prop("checked",true);
+                    $("#checkboxE_option_allowothers").prop("checked",true);
                 }else{
-                    $("#checkbox_option_allowothers").prop("checked",false);
+                    $("#checkboxE_option_allowothers").prop("checked",false);
                 }
                 if(element["description"]){
                     $("#checkboxE_description").val(element["description"]);
@@ -71,7 +71,7 @@
             confirm : function () {
                 editingObject["name"] = $("#checkboxE_name").val();
                 editingObject["required"] = $("#checkboxE_required").prop("checked");
-                editingObject["allowOthers"] = $("#checkbox_option_allowothers").prop("checked");
+                editingObject["allowOthers"] = $("#checkboxE_option_allowothers").prop("checked");
 
                 editingObject["options"] = [];
                 $("#checkboxE_options input.checkboxE_options").each(function () {
@@ -95,8 +95,8 @@
         $("#checkboxE_options").on("click","input.optionE_options_delete",function () {
             $(this).parent().remove();
         });
-        $("#checkbox_option_allowothers").click(function () {
-            if($("#checkbox_option_allowothers").prop("checked")) {
+        $("#checkboxE_option_allowothers").click(function () {
+            if($("#checkboxE_option_allowothers").prop("checked")) {
                 $("#checkboxE_option_others")[0].style.display = "block";
             }else{
                 $("#checkboxE_option_others")[0].style.display = "none";

@@ -21,6 +21,7 @@ class CreateFormNamesTable extends Migration
             $table->timestamps();
             $table->string('Title2', 700)->nullable();
             $table->string('Title3', 700)->nullable();
+            $table->string('Title4', 700)->nullable();
             
         });
     }

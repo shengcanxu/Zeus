@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Form;
 use App\FormNode;
 use App\Http\Controllers\Worldbuilder\CheckBox;
+use App\Http\Controllers\Worldbuilder\RadioBox;
 use App\Http\Controllers\Worldbuilder\TextBox;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Worldbuilder\TextView;
@@ -28,6 +29,7 @@ class FormController extends Controller{
 
             $nodeClasses = array(
                 (new TextBox([]))->addDefaultValue(),
+                (new RadioBox([]))->addDefaultValue(),
                 (new CheckBox([]))->addDefaultValue(),
                 (new TextView([]))->addDefaultValue()
             );
@@ -81,6 +83,10 @@ class FormController extends Controller{
                 $textbox = new TextBox([]);
                 $textbox->fromJson($node);
                 return $textbox;
+            case "radiobox":
+                $radiobox = new RadioBox([]);
+                $radiobox->fromJson($node);
+                return $radiobox;
             case "checkbox":
                 $checkbox = new CheckBox([]);
                 $checkbox->fromJson($node);

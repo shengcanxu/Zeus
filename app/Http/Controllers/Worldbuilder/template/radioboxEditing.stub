@@ -1,0 +1,106 @@
+<div id="radioboxE" style="display:none">
+    <div style="display:none" id="radioboxE_template">
+        <div>
+            <input type="radio" class="radioboxE_defaultvalue" name="radioboxE_options"/>
+            <input type='text' class='radioboxE_options' value=''/>
+            <input type='button' class='optionE_options_delete' value='delete'/>
+        </div>
+    </div>
+    <ul>
+        <li>
+            <p>名称</p>
+            <input type="text"  id="radioboxE_name" />
+        </li>
+        <li>
+            <p>配置</p>
+            <input  type="checkbox" name="radioboxE_required" id="radioboxE_required" /> 必填 <br/>
+            <input type="checkbox" name="radioboxE_option_allowothers" id="radioboxE_option_allowothers" />允许其他值 <br/>
+        </li>
+        <li>
+            <p>选项　&absp;&absp;<input type="button" value="增加" id="radioboxE_options_add"></p>
+            <div id="radioboxE_options">
+
+            </div>
+            <div id="radioboxE_option_others" style="display: none">
+                <input type="radio" class="radioboxE_defaultvalue" name="radioboxE_options" disabled />
+                <label>其他</label>
+                <input type='text' class='radioboxE_options' value='' disabled/>
+            </div>
+        </li>
+        <li>
+            <p>字段说明</p>
+            <textarea cols="3" id="radioboxE_description" style="width:300px;height:80px;"></textarea>
+        </li>
+    </ul>
+    <script language="JavaScript">
+        var radioboxediting = {
+            initialize : function () {
+                var element = window.editingObject;
+                if(element["name"]){
+                    $("#radioboxE_name").val(element["name"]);
+                }
+                if(element["required"]){
+                    $("#radioboxE_required").prop("checked",true);
+                }else{
+                    $("#radioboxE_required").prop("checked",false);
+                }
+                if(element["options"]){
+                    $("#radioboxE_options").children().remove();
+                    for(var i=0; i<element["options"].length; i++){
+                        var div = $("#radioboxE_template>div").clone();
+                        div.find("input.radioboxE_options").attr("value",element["options"][i]);
+                        if(element["defaultValue"] && element["defaultValue"]==element["options"][i]){
+                            div.find("input.radioboxE_defaultvalue").prop("checked",true);
+                        }
+                        div.appendTo($("#radioboxE_options"));
+                    }
+                }
+                if(element["allowOthers"]){
+                    $("#radioboxE_option_allowothers").prop("checked",true);
+                }else{
+                    $("#radioboxE_option_allowothers").prop("checked",false);
+                }
+                if(element["description"]){
+                    $("#radioboxE_description").val(element["description"]);
+                }else{
+                    $("#radioboxE_description").val("");
+                }
+
+                $("#confirmEditing").attr("node","radioboxediting");
+            },
+            confirm : function () {
+                editingObject["name"] = $("#radioboxE_name").val();
+                editingObject["required"] = $("#radioboxE_required").prop("checked");
+                editingObject["allowOthers"] = $("#radioboxE_option_allowothers").prop("checked");
+
+                editingObject["options"] = [];
+                $("#radioboxE_options input.radioboxE_options").each(function () {
+                    var value = $(this).val().trim();
+                    if(value.length > 0) {
+                        editingObject["options"].push(value);
+                    }
+                    if($(this).parent().find("input.radioboxE_defaultvalue").prop("checked")){
+                        editingObject["defaultValue"] = value;
+                    }
+                })
+                editingObject["description"] = $("#radioboxE_description").val();
+
+                formFunc.refresh();
+            }
+        }
+
+        $("#radioboxE_options_add").click(function () {
+            $("#radioboxE_template>div").clone().appendTo($("#radioboxE_options"));
+        });
+        $("#radioboxE_options").on("click","input.optionE_options_delete",function () {
+            $(this).parent().remove();
+        });
+        $("#radioboxE_option_allowothers").click(function () {
+            if($("#radioboxE_option_allowothers").prop("checked")) {
+                $("#radioboxE_option_others")[0].style.display = "block";
+            }else{
+                $("#radioboxE_option_others")[0].style.display = "none";
+            }
+        })
+    </script>
+</div>
