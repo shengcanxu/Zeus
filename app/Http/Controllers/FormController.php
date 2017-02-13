@@ -52,7 +52,8 @@ class FormController extends Controller{
 
         $failString = "";
         foreach ($nodes as $node){
-            $fail = $node->valueCheck($request,$formName);
+            $value = $request->get($node->name);
+            $fail = $node->valueCheck($value,$formName);
             $failString = $failString . $fail;
         }
         return $failString;

@@ -14,15 +14,15 @@ class CheckBox extends Node
 {
     public $options = [];
 
-    public function __construct($elements){
-        parent::__construct($elements);
+    public function __construct($element){
+        parent::__construct($element);
 
         $this->type = "checkbox";
 
         $this->columnType = "string";
         $this->length = 700;
-        if(isset($elements["options"])){
-            $this->options = $elements["options"];
+        if(isset($element["options"])){
+            $this->options = $element["options"];
         }
     }
 
@@ -37,8 +37,8 @@ class CheckBox extends Node
      * @param \Request $request
      * @return return fail string or empty means success
      */
-    public function valueCheck(Request $request,$formName){
-        $failstring = parent::valueCheck($request,$formName);
+    public function valueCheck($value,$formName){
+        $failstring = parent::valueCheck($value,$formName);
 
         return $failstring;
     }

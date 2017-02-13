@@ -16,16 +16,16 @@ class TextView extends Node
 {
     public $content = "";
 
-    public function __construct($elements){
-        parent::__construct($elements);
+    public function __construct($element){
+        parent::__construct($element);
 
         $this->type = "textview";
         $this->columnType = "text";
         $this->inDB = false;
 
-        if(isset($elements["content"])){
-            $this->name = $elements["content"];
-            $this->content = $elements["content"];
+        if(isset($element["content"])){
+            $this->name = $element["content"];
+            $this->content = $element["content"];
         }
     }
 
@@ -38,7 +38,7 @@ class TextView extends Node
      * @param \Request $request
      * @return return fail string or empty means success
      */
-    public function valueCheck(Request $request,$formName){
+    public function valueCheck($value,$formName){
         return "";
     }
 

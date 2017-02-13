@@ -7,7 +7,15 @@
         <li>
             <p>配置</p>
             <input  type="checkbox" name="textboxE_required" id="textboxE_required" /> 必填 <br/>
-            <input type="checkbox" name="textboxE_unique" id="textboxE_unique" /> 唯一
+            <input type="checkbox" name="textboxE_unique" id="textboxE_unique" /> 唯一 <br/>
+            <input type="checkbox" name="textboxE_allnumber" id="textboxE_allnumber" /> 数字 <br/>
+            <div id="checkboxE_stringarea" style="display:none">
+                <span>最大长度:</span><input type="text" name="textboxE_maxlength" id="textboxE_maxlength" /><br/>
+            </div>
+            <div id="checkboxE_numberarea">
+                <span>最小值:</span><input type="text" name="textboxE_minNumber" id="textboxE_minNumber" /><br/>
+                <span>最大值:</span><input type="text" name="textboxE_maxNumber" id="textboxE_maxNumber" /><br/>
+            </div>
         </li>
     </ul>
     <script language="javascript">
@@ -29,6 +37,30 @@
                 }else{
                     $("#textboxE_unique").prop("checked", false);
                 }
+                if(element["shouldAllNumber"]){
+                    $("#textboxE_allnumber").prop("checked",true);
+                    $("#checkboxE_numberarea")[0].style.display = "block";
+                    $("#checkboxE_stringarea")[0].style.display = "none";
+                }else{
+                    $("#textboxE_allnumber").prop("checked",false);
+                    $("#checkboxE_numberarea")[0].style.display = "none";
+                    $("#checkboxE_stringarea")[0].style.display = "block";
+                }
+                if(element["maxLength"]){
+                    $("#textboxE_maxlength").val(element["maxLength"]);
+                }else{
+                    $("#textboxE_maxlength").val("");
+                }
+                if(element["minNumber"]){
+                    $("#textboxE_minNumber").val(element["minNumber"]);
+                }else{
+                    $("#textboxE_minNumber").val("");
+                }
+                if(element["maxNumber"]){
+                    $("#textboxE_maxNumber").val(element["maxNumber"]);
+                }else{
+                    $("#textboxE_maxNumber").val("");
+                }
 
                 $("#confirmEditing").attr("node","textboxediting");
             },
@@ -36,8 +68,22 @@
                 editingObject["name"] = $("#textboxE_name").val();
                 editingObject["required"] = $("#textboxE_required").prop("checked") ;
                 editingObject["unique"] = $("#textboxE_unique").prop("checked");
+                editingObject["shouldAllNumber"] = $("#textboxE_allnumber").prop("checked");
+                editingObject["maxLength"] = $("#textboxE_maxlength").val();
+                editingObject["minNumber"] = $("#textboxE_minNumber").val();
+                editingObject["maxNumber"] = $("#textboxE_maxNumber").val();
                 formFunc.refresh();
             }
         }
+
+        $("#textboxE_allnumber").click(function () {
+            if($("#textboxE_allnumber").prop("checked")){
+                $("#checkboxE_numberarea")[0].style.display = "block";
+                $("#checkboxE_stringarea")[0].style.display = "none";
+            }else{
+                $("#checkboxE_numberarea")[0].style.display = "none";
+                $("#checkboxE_stringarea")[0].style.display = "block";
+            }
+        });
     </script>
 </div>

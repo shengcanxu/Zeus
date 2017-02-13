@@ -69,9 +69,8 @@ class Node
      * @param \Request $request
      * @return return fail string or empty means success
      */
-    protected function valueCheck(Request $request,$formName){
+    protected function valueCheck($value,$formName){
         $failstring = "";
-        $value = $request->get($this->name);
         if($this->required){
             if($value == null || strlen(trim($value)) == 0){
                 $failstring = "Error: " . $this->name . " 是必填<br/>";

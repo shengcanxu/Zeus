@@ -16,19 +16,47 @@ class TextBox extends Node
 {
     public $content = "";
 
-    public function __construct($elements){
-        parent::__construct($elements);
+    public $shouldAllNumber = false;
+
+    public $maxLength = 0;
+
+    public $minNumber = 0;
+
+    public $maxNumber = 0;
+
+    public function __construct($element){
+        parent::__construct($element);
 
         $this->type = "textbox";
         $this->columnType = "string";
         $this->length = 700;
 
-        if(isset($elements["length"])){
-            $this->length = (int) $elements["length"];
+        if(isset($element["length"])){
+            $this->length = (int) $element["length"];
         }
 
-        if(isset($elements["content"])){
-            $this->content = $elements["content"];
+        if(isset($element["content"])){
+            $this->content = $element["content"];
+        }
+
+        if(isset($element["shouldAllNumber"])){
+            $this->shouldAllNumber = $element["shouldAllNumber"] === 'true' ? true : false;
+            if($this->shouldAllNumber){
+                $this->columnType = "double";
+                $this->length = "30,10";
+            }
+        }
+
+        if(isset($element["maxLength"])){
+            $this->maxLength = (int) $element["maxLength"];
+        }
+
+        if(isset($element["minNumber"])){
+            $this->minNumber = (int) $element["minNumber"];
+        }
+
+        if(isset($element["maxNumber"])){
+            $this->maxNumber = (int) $element["maxNumber"];
         }
     }
 
@@ -41,8 +69,25 @@ class TextBox extends Node
      * @param \Request $request
      * @return return fail string or empty means success
      */
-    public function valueCheck(Request $request,$formName){
-        $failstring = parent::valueCheck($request,$formName);
+    public function valueCheck($value,$formName){
+        $failstring = parent::valueCheck($value,$formName);
+
+        if($this->shouldAllNumber){
+            if(!is_numeric($value)){
+                $failstring = $failstring . $this->name . " 的值必须是数字!<br/>";
+            }
+        }
+        if(!$this->shouldAllNumber && $this->maxLength > 0){
+           if(strlen($value) > $this->maxLength){
+               $failstring = $failstring . $this->name . " 的值过长,不能超过" . $this->maxLength;
+           }
+        }
+        if($this->shouldAllNumber && ($this->maxNumber!=0 || $this->minNumber!=0)){
+            $intValue = (int)$value;
+            if(($intValue > $this->maxNumber) || $intValue < $this->minNumber){
+                $failstring = $failstring . $this->name . " 的值必须在范围[" . $this->minNumber . " , " . $this->maxNumber . "]";
+            }
+        }
 
         return $failstring;
     }
@@ -51,7 +96,7 @@ class TextBox extends Node
         return sprintf("\$table->%s('%s'%s)%s%s;" . PHP_EOL . '            ' ,
             $this->columnType,
             $this->name,
-            $this->length > 0 ? ", $this->length" : '',
+            $this->length > 0  ? ", $this->length" : '',
             $this->required===true ? '' : '->nullable()',
             $this->unique===true ? '->unique()' : ''
         );
@@ -73,6 +118,10 @@ class TextBox extends Node
         parent::fromJson($node);
 
         $this->content = $node->content;
+        $this->shouldAllNumber = $node->shouldAllNumber;
+        $this->maxLength = $node->maxLength;
+        $this->minNumber = $node->minNumber;
+        $this->maxNumber = $node->maxNumber;
     }
 
 }
