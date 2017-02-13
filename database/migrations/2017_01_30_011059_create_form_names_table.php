@@ -19,10 +19,10 @@ class CreateFormNamesTable extends Migration
 
             $table->increments('id');
             $table->timestamps();
-            $table->string('Title2', 700);
-            $table->string('Title3', 700);
+            $table->string('Title2', 700)->unique();
+            $table->string('Title3', 700)->nullable();
             $table->string('Title4', 700)->nullable();
-            $table->string('Title5', 700)->nullable();
+            $table->string('Title5', 700);
             
         });
     }

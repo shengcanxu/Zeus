@@ -11,6 +11,8 @@ namespace App\Http\Controllers\Worldbuilder;
 
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class Node
 {
@@ -67,12 +69,22 @@ class Node
      * @param \Request $request
      * @return return fail string or empty means success
      */
-    protected function valueCheck(Request $request){
+    protected function valueCheck(Request $request,$formName){
         $failstring = "";
         $value = $request->get($this->name);
         if($this->required){
             if($value == null || strlen(trim($value)) == 0){
                 $failstring = "Error: " . $this->name . " 是必填<br/>";
+            }
+        }
+        if($this->unique){
+            $tableName = strtolower(Str::plural(Str::snake($formName)));
+            $columnValues = DB::select("select " . $this->name . " from " . $tableName );
+            foreach($columnValues as $column){
+                $columnArray = (array)$column;
+                if($value == $columnArray[$this->name]){
+                    $failstring = "Error: " . $this->name . " 的值 " . $value . " 已经存在!<br/>";
+                }
             }
         }
         return $failstring;

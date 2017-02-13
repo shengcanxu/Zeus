@@ -41,8 +41,8 @@ class TextBox extends Node
      * @param \Request $request
      * @return return fail string or empty means success
      */
-    public function valueCheck(Request $request){
-        $failstring = parent::valueCheck($request);
+    public function valueCheck(Request $request,$formName){
+        $failstring = parent::valueCheck($request,$formName);
 
         return $failstring;
     }

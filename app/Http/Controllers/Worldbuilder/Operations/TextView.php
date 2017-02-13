@@ -38,7 +38,7 @@ class TextView extends Node
      * @param \Request $request
      * @return return fail string or empty means success
      */
-    public function valueCheck(Request $request){
+    public function valueCheck(Request $request,$formName){
         return "";
     }
 

@@ -37,19 +37,18 @@ class CheckBox extends Node
      * @param \Request $request
      * @return return fail string or empty means success
      */
-    public function valueCheck(Request $request){
-        $failstring = parent::valueCheck($request);
+    public function valueCheck(Request $request,$formName){
+        $failstring = parent::valueCheck($request,$formName);
 
         return $failstring;
     }
 
     public function migrationText(){
-        return sprintf("\$table->%s('%s'%s)%s%s;" . PHP_EOL . '            ' ,
+        return sprintf("\$table->%s('%s'%s)%s;" . PHP_EOL . '            ' ,
             $this->columnType,
             $this->name,
             $this->length > 0 ? ", $this->length" : '',
-            $this->required ? '' : '->nullable()',
-            $this->unique ? '->unique()' : ''
+            $this->required ? '' : '->nullable()'
         );
     }
 
