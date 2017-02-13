@@ -42,6 +42,11 @@ class MyModelClassController extends FormController
         $myModelInstance = new MyModelClass();
         myModelFill
 
+        $failString = $this->valueCheck($request, $this->formName);
+        if(strlen($failString) >0){
+            return "value check fails:<br/>" . $failString;
+        }
+
         if($myModelInstance->save()){
             return "save " . $this->formName . " successfully";
         }else{

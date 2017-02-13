@@ -4,6 +4,11 @@
             <p>名称</p>
             <input type="text" name="textboxE_name" id="textboxE_name" />
         </li>
+        <li>
+            <p>配置</p>
+            <input  type="checkbox" name="textboxE_required" id="textboxE_required" /> 必填 <br/>
+            <input type="checkbox" name="textboxE_unique" id="textboxE_unique" /> 唯一
+        </li>
     </ul>
     <script language="javascript">
         var textboxediting = {
@@ -11,11 +16,26 @@
                 var element = window.editingObject;
                 if(element["name"]){
                     $("#textboxE_name").val(element["name"]);
+                }else{
+                    $("#textboxE_name").val("");
                 }
+                if(element["required"]){
+                    $("#textboxE_required").prop("checked",true);
+                }else{
+                    $("#textboxE_required").prop("checked",false);
+                }
+                if(element["unique"]){
+                    $("#textboxE_unique").prop("checked",true);
+                }else{
+                    $("#textboxE_unique").prop("checked", false);
+                }
+
                 $("#confirmEditing").attr("node","textboxediting");
             },
             confirm : function () {
                 editingObject["name"] = $("#textboxE_name").val();
+                editingObject["required"] = $("#textboxE_required").prop("checked") ;
+                editingObject["unique"] = $("#textboxE_unique").prop("checked");
                 formFunc.refresh();
             }
         }

@@ -26,12 +26,51 @@ class FormController extends Controller{
 
             $sortedNodes = collect($nodes)->sortBy("id")->all();
 
+            $nodeClasses = array(
+                (new TextBox([]))->addDefaultValue(),
+                (new CheckBox([]))->addDefaultValue(),
+                (new TextView([]))->addDefaultValue()
+            );
+
             return view("builder/form")
                 ->with('formName', $formName)
                 ->with('submitUrl', url('/forms/'.$formName))
-                ->with('nodes', $sortedNodes);
+                ->with('nodes', $sortedNodes)
+                ->with('nodeClasses', $nodeClasses);
         }else{
             return "Error: No Form with name: " . $formName;
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param $formName
+     * @return fail string. if fail string is empty, means success;
+     */
+    public function  valueCheck(Request $request, $formName){
+        $nodes = $this->getFormNodes($formName);
+
+        $failString = "";
+        foreach ($nodes as $node){
+            $fail = $node->valueCheck($request);
+            $failString = $failString . $fail;
+        }
+        return $failString;
+    }
+
+    private function getFormNodes($formName){
+        $formModel = new Form();
+        $form = $formModel->where("form_name", "=", $formName)->first();
+        if($form){
+            $nodes = [];
+            foreach ($form->nodes as $node){
+                $jsonObject = json_decode($node['json']);
+                $nodeObject = $this->fillNodeObject($jsonObject);
+                array_push($nodes, $nodeObject);
+            }
+            return $nodes;
+        }else{
+            return [];
         }
     }
 

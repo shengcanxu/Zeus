@@ -1,8 +1,8 @@
 <div id="checkboxE" style="display:none">
     <div style="display:none" id="checkboxE_template">
         <div>
-            <input type='text' class='checkboxE_options' value='content2'/>
-            <input type='button' class='optionE_delete' value='delete'/>
+            <input type='text' class='checkboxE_options' value=''/>
+            <input type='button' class='optionE_options_delete' value='delete'/>
         </div>
     </div>
     <ul>
@@ -11,7 +11,12 @@
             <input type="text"  id="checkboxE_name" />
         </li>
         <li>
-            <p>选项</p>
+            <p>配置</p>
+            <input  type="checkbox" name="checkboxE_required" id="checkboxE_required" /> 必填 <br/>
+            <input type="checkbox" name="checkboxE_unique" id="checkboxE_unique" /> 唯一
+        </li>
+        <li>
+            <p>选项　&absp;&absp;<input type="button" value="增加" id="checkboxE_options_add"></p>
             <div id="checkboxE_options">
             </div>
         </li>
@@ -23,30 +28,49 @@
                 if(element["name"]){
                     $("#checkboxE_name").val(element["name"]);
                 }
+                if(element["required"]){
+                    $("#checkboxE_required").prop("checked",true);
+                }else{
+                    $("#checkboxE_required").prop("checked",false);
+                }
+                if(element["unique"]){
+                    $("#checkboxE_unique").prop("checked", true);
+                }else{
+                    $("#checkboxE_unique").prop("checked", false);
+                }
                 if(element["options"]){
                     $("#checkboxE_options").children().remove();
                     for(var i=0; i<element["options"].length; i++){
                         var div = $("#checkboxE_template>div").clone();
                         div.find("input.checkboxE_options").attr("value",element["options"][i]);
                         div.appendTo($("#checkboxE_options"));
-
                     }
                 }
 
                 $("#confirmEditing").attr("node","checkboxediting");
-                $("#checkboxE_options input.optionE_delete").click(function () {
-                    $(this).parent().remove();
-                })
             },
             confirm : function () {
                 editingObject["name"] = $("#checkboxE_name").val();
+                editingObject["required"] = $("#checkboxE_required").prop("checked");
+                editingObject["unique"] = $("#checkboxE_unique").prop("checked");
+
                 editingObject["options"] = [];
                 $("#checkboxE_options input.checkboxE_options").each(function () {
-                    editingObject["options"].push($(this).val());
+                    var value = $(this).val().trim();
+                    if(value.length > 0) {
+                        editingObject["options"].push(value);
+                    }
                 })
 
                 formFunc.refresh();
             }
         }
+
+        $("#checkboxE_options_add").click(function () {
+            $("#checkboxE_template>div").clone().appendTo($("#checkboxE_options"));
+        });
+        $("#checkboxE_options").on("click","input.optionE_options_delete",function () {
+            $(this).parent().remove();
+        });
     </script>
 </div>

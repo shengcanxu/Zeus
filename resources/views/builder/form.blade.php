@@ -25,8 +25,8 @@
         </div>
 
         <div id="nodes" style="display: none;">
-            @foreach($nodes as $node)
-                {!! $node->htmlString()!!}
+            @foreach($nodeClasses as $nodeClass)
+                {!! $nodeClass->htmlString()!!}
             @endforeach
         </div>
     </div>

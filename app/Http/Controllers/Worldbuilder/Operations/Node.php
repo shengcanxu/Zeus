@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Worldbuilder;
 
 
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Http\Request;
 
 class Node
 {
@@ -19,8 +20,6 @@ class Node
 
     public $type = "node";
 
-    public $unique = false;
-
     public $name = "";
 
     public $description = "";
@@ -28,6 +27,10 @@ class Node
     public $columnType = "string";
 
     public $length = 0;
+
+    public $required = false;
+
+    public $unique = false;
 
     /**
      * @var bool 表示是不是需要创建数据库字段，是否需要用户输入
@@ -40,9 +43,6 @@ class Node
         if(isset($element["id"])){
             $this->id = $element["id"];
         }
-        if(isset($element["unique"])){
-            $this->unique = true;
-        }
 
         if(isset($element["name"])){
             $this->name = $element["name"];
@@ -53,6 +53,29 @@ class Node
         }elseif (isset($element["name"])){
             $this->description = $element["name"];
         }
+
+        if(isset($element["required"])){
+            $this->required = $element["required"] == "true" ? true : false;
+        }
+
+        if(isset($element["unique"])){
+            $this->unique = $element["unique"] == "true" ? true : false;
+        }
+    }
+
+    /**
+     * @param \Request $request
+     * @return return fail string or empty means success
+     */
+    protected function valueCheck(Request $request){
+        $failstring = "";
+        $value = $request->get($this->name);
+        if($this->required){
+            if($value == null || strlen(trim($value)) == 0){
+                $failstring = "Error: " . $this->name . " 是必填<br/>";
+            }
+        }
+        return $failstring;
     }
 
     public function toJson(){
@@ -64,10 +87,11 @@ class Node
     public function fromJson($node){
         $this->id = $node->id;
         $this->type = $node->type;
-        $this->unique = $node->unique;
         $this->name = $node->name;
         $this->description = $node->description;
         $this->columnType = $node->columnType;
         $this->length = $node->length;
+        $this->required = $node->required;
+        $this->unique = $node->unique;
     }
 }

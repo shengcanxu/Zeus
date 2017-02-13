@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Worldbuilder;
 
 
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Http\Request;
 
 class TextBox extends Node
 {
@@ -20,7 +21,7 @@ class TextBox extends Node
 
         $this->type = "textbox";
         $this->columnType = "string";
-        $this->length = 1000;
+        $this->length = 700;
 
         if(isset($elements["length"])){
             $this->length = (int) $elements["length"];
@@ -36,11 +37,23 @@ class TextBox extends Node
         return $this;
     }
 
+    /**
+     * @param \Request $request
+     * @return return fail string or empty means success
+     */
+    public function valueCheck(Request $request){
+        $failstring = parent::valueCheck($request);
+
+        return $failstring;
+    }
+
     public function migrationText(){
-        return sprintf("\$table->%s('%s'%s);" . PHP_EOL . '            ' ,
+        return sprintf("\$table->%s('%s'%s)%s%s;" . PHP_EOL . '            ' ,
             $this->columnType,
             $this->name,
-            $this->length > 0 ? ", $this->length" : ''
+            $this->length > 0 ? ", $this->length" : '',
+            $this->required===true ? '' : '->nullable()',
+            $this->unique===true ? '->unique()' : ''
         );
     }
 

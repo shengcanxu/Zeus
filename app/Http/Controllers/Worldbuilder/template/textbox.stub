@@ -1,7 +1,10 @@
 <div class="textbox">
     <div id="textbox_template" style="display:none">
         <div style="position:relative;">
-            <p class="nameView"></p>
+            <div>
+                <span class="nameView"></span>
+                <b class="required" style="color:red;display:none;">*</b>
+            </div>
             <input class="textbox_name" type='text' name="" />
         </div>
     </div>
@@ -10,8 +13,13 @@
         var textbox = {
             initData: function (element) {
                 if(element["name"]){
-                    $("#textbox_template p.nameview").text(element["name"]);
+                    $("#textbox_template span.nameview").text(element["name"]);
                     $("#textbox_template input.textbox_name").attr("name",element["name"]);
+                }
+                if(element["required"]==true){
+                    $("#textbox_template b.required")[0].style.display = "inline";
+                }else{
+                    $("#textbox_template b.required")[0].style.display = "none";
                 }
             },
             generateNode: function (element, appendto) {
@@ -20,16 +28,6 @@
                 var div = $("#textbox_template>div").clone();
                 div.attr("id",element["id"]);
                 div.appendTo(appendto);
-            },
-
-            generateForm: function () {
-                var element = {'OBJNAME':'OBJVALUE'};
-                this.initData(element);
-
-                var div = $("#textbox_template>div").clone();
-                div.attr("id",element["id"]);
-                div.appendTo($("#textbox_template").parent());
-                $("#textbox_template").remove();
             }
         }
     </script>

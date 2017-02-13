@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Worldbuilder;
 
 
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Http\Request;
 
 class TextView extends Node
 {
@@ -31,6 +32,14 @@ class TextView extends Node
     public function addDefaultValue(){
         $this->name = "TitleView Description";
         return $this;
+    }
+
+    /**
+     * @param \Request $request
+     * @return return fail string or empty means success
+     */
+    public function valueCheck(Request $request){
+        return "";
     }
 
     public function migrationText(){

@@ -7,6 +7,7 @@
  */
 
 namespace App\Http\Controllers\Worldbuilder;
+use Illuminate\Http\Request;
 
 
 class CheckBox extends Node
@@ -19,7 +20,7 @@ class CheckBox extends Node
         $this->type = "checkbox";
 
         $this->columnType = "string";
-        $this->length = 1000;
+        $this->length = 700;
         if(isset($elements["options"])){
             $this->options = $elements["options"];
         }
@@ -32,11 +33,23 @@ class CheckBox extends Node
         return $this;
     }
 
+    /**
+     * @param \Request $request
+     * @return return fail string or empty means success
+     */
+    public function valueCheck(Request $request){
+        $failstring = parent::valueCheck($request);
+
+        return $failstring;
+    }
+
     public function migrationText(){
-        return sprintf("\$table->%s('%s'%s);" . PHP_EOL . '            ' ,
+        return sprintf("\$table->%s('%s'%s)%s%s;" . PHP_EOL . '            ' ,
             $this->columnType,
             $this->name,
-            $this->length > 0 ? ", $this->length" : ''
+            $this->length > 0 ? ", $this->length" : '',
+            $this->required ? '' : '->nullable()',
+            $this->unique ? '->unique()' : ''
         );
     }
 

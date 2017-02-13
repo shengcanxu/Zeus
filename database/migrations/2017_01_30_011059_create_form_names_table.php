@@ -15,10 +15,14 @@ class CreateFormNamesTable extends Migration
         Schema::dropIfExists('form_names');
 
         Schema::create('form_names', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('id');
             $table->timestamps();
-            $table->string('Title2', 1000);
-            $table->string('Title3', 1000);
+            $table->string('Title2', 700);
+            $table->string('Title3', 700);
+            $table->string('Title4', 700)->nullable();
+            $table->string('Title5', 700)->nullable();
             
         });
     }

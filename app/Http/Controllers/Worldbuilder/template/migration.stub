@@ -15,6 +15,8 @@ class MIGRATION_CLASS_PLACEHOLDER extends Migration
         Schema::dropIfExists('TABLE_NAME_PLACEHOLDER');
 
         Schema::create('TABLE_NAME_PLACEHOLDER', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
             $table->increments('id');
             $table->timestamps();
             MIGRATION_COLUMNS_PLACEHOLDER
