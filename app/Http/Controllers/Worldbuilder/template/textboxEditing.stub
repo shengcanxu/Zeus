@@ -21,6 +21,10 @@
             <span>默认值</span>
             <input type="text" name="textboxE_defaultvalue" id="textboxE_defaultvalue" />
         </li>
+        <li>
+            <p>字段说明</p>
+            <textarea cols="3" id="textboxE_description" style="width:300px;height:80px;"></textarea>
+        </li>
     </ul>
     <script language="javascript">
         var textboxediting = {
@@ -70,6 +74,11 @@
                 }else{
                     $("#textboxE_defaultvalue").val("");
                 }
+                if(element["description"]){
+                    $("#textboxE_description").val(element["description"]);
+                }else{
+                    $("#textboxE_description").val("");
+                }
 
                 $("#confirmEditing").attr("node","textboxediting");
             },
@@ -82,6 +91,7 @@
                 editingObject["minNumber"] = $("#textboxE_minNumber").val();
                 editingObject["maxNumber"] = $("#textboxE_maxNumber").val();
                 editingObject["defaultValue"] = $("#textboxE_defaultvalue").val();
+                editingObject["description"] = $("#textboxE_description").val();
                 formFunc.refresh();
             }
         }

@@ -63,6 +63,10 @@ class Node
         if(isset($element["unique"])){
             $this->unique = $element["unique"] == "true" ? true : false;
         }
+
+        if(isset($element["description"])){
+            $this->description = $element["description"];
+        }
     }
 
     /**
@@ -104,5 +108,6 @@ class Node
         $this->length = $node->length;
         $this->required = $node->required;
         $this->unique = $node->unique;
+        $this->description = $node->description;
     }
 }
