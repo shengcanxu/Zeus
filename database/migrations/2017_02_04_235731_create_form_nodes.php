@@ -18,7 +18,7 @@ class CreateFormNodes extends Migration
            $table->timestamps();
            $table->integer("form_id");
            $table->string("node_name",100);
-           $table->string("json");
+           $table->text("json");
         });
     }
 

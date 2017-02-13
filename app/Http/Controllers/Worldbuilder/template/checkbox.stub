@@ -34,6 +34,9 @@
                         var div = $("#checkbox_option_template>div").clone();
                         div.find("input.option").attr("name",element["name"]).attr("value",element["options"][i]);
                         div.find("label").text(element["options"][i]);
+                        if(element["defaultValue"] && element["defaultValue"]==element["options"][i]){
+                            div.find("input.option").prop("checked",true);
+                        }
                         div.appendTo($("#checkbox_template div.checkbox_options"));
                     }
                 }

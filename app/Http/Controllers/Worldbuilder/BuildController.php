@@ -24,6 +24,14 @@ class BuildController extends Controller{
     }
 
     public function store(Request $request){
+        for($i = 0; $i<count($request->elements); $i++){
+            for($j = $i+1; $j<count($request->elements); $j++){
+                if($request->elements[$i]["name"] == $request->elements[$j]["name"]){
+                    return redirect("/error");
+                }
+            }
+        }
+
         $operation = new BuilderOperation();
         $operation->handle($request);
 

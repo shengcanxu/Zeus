@@ -24,6 +24,8 @@ class TextBox extends Node
 
     public $maxNumber = 0;
 
+    public $defaultValue = '';
+
     public function __construct($element){
         parent::__construct($element);
 
@@ -57,6 +59,10 @@ class TextBox extends Node
 
         if(isset($element["maxNumber"])){
             $this->maxNumber = (int) $element["maxNumber"];
+        }
+
+        if(isset($element["defaultValue"])){
+            $this->defaultValue = $element["defaultValue"];
         }
     }
 
@@ -104,7 +110,7 @@ class TextBox extends Node
 
     public function htmlString(){
         $textBoxString = $this->files->get(__DIR__ . "/../template/textbox.stub");
-        $textBoxString = str_replace("{'OBJNAME':'OBJVALUE'}", json_encode($this),$textBoxString);
+        //$textBoxString = str_replace("{'OBJNAME':'OBJVALUE'}", json_encode($this),$textBoxString);
         return $textBoxString;
     }
 
@@ -122,6 +128,7 @@ class TextBox extends Node
         $this->maxLength = $node->maxLength;
         $this->minNumber = $node->minNumber;
         $this->maxNumber = $node->maxNumber;
+        $this->defaultValue = $node->defaultValue;
     }
 
 }

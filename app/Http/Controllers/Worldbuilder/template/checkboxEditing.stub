@@ -1,6 +1,7 @@
 <div id="checkboxE" style="display:none">
     <div style="display:none" id="checkboxE_template">
         <div>
+            <input type="radio" class="checkboxE_defaultvalue" name="checkboxE_options"/>
             <input type='text' class='checkboxE_options' value=''/>
             <input type='button' class='optionE_options_delete' value='delete'/>
         </div>
@@ -37,6 +38,9 @@
                     for(var i=0; i<element["options"].length; i++){
                         var div = $("#checkboxE_template>div").clone();
                         div.find("input.checkboxE_options").attr("value",element["options"][i]);
+                        if(element["defaultValue"] && element["defaultValue"]==element["options"][i]){
+                            div.find("input.checkboxE_defaultvalue").prop("checked",true);
+                        }
                         div.appendTo($("#checkboxE_options"));
                     }
                 }
@@ -52,6 +56,9 @@
                     var value = $(this).val().trim();
                     if(value.length > 0) {
                         editingObject["options"].push(value);
+                    }
+                    if($(this).parent().find("input.checkboxE_defaultvalue").prop("checked")){
+                        editingObject["defaultValue"] = value;
                     }
                 })
 

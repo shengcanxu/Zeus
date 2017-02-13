@@ -21,6 +21,9 @@
                 }else{
                     $("#textbox_template b.required")[0].style.display = "none";
                 }
+                if(element["defaultValue"]){
+                    $("#textbox_template input.textbox_name").val(element["defaultValue"]);
+                }
             },
             generateNode: function (element, appendto) {
                 this.initData(element);

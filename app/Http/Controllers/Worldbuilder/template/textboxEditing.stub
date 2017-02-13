@@ -17,6 +17,10 @@
                 <span>最大值:</span><input type="text" name="textboxE_maxNumber" id="textboxE_maxNumber" /><br/>
             </div>
         </li>
+        <li>
+            <span>默认值</span>
+            <input type="text" name="textboxE_defaultvalue" id="textboxE_defaultvalue" />
+        </li>
     </ul>
     <script language="javascript">
         var textboxediting = {
@@ -61,6 +65,11 @@
                 }else{
                     $("#textboxE_maxNumber").val("");
                 }
+                if(element["defaultValue"]){
+                    $("#textboxE_defaultvalue").val(element["defaultValue"]);
+                }else{
+                    $("#textboxE_defaultvalue").val("");
+                }
 
                 $("#confirmEditing").attr("node","textboxediting");
             },
@@ -72,6 +81,7 @@
                 editingObject["maxLength"] = $("#textboxE_maxlength").val();
                 editingObject["minNumber"] = $("#textboxE_minNumber").val();
                 editingObject["maxNumber"] = $("#textboxE_maxNumber").val();
+                editingObject["defaultValue"] = $("#textboxE_defaultvalue").val();
                 formFunc.refresh();
             }
         }

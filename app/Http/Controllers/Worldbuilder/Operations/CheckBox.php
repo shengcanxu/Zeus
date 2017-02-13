@@ -14,15 +14,21 @@ class CheckBox extends Node
 {
     public $options = [];
 
+    public $defaultValue = '';
+
     public function __construct($element){
         parent::__construct($element);
 
         $this->type = "checkbox";
-
         $this->columnType = "string";
         $this->length = 700;
+
         if(isset($element["options"])){
             $this->options = $element["options"];
+        }
+
+        if(isset($element["defaultValue"])){
+            $this->defaultValue = $element["defaultValue"];
         }
     }
 
@@ -67,5 +73,6 @@ class CheckBox extends Node
         parent::fromJson($node);
 
         $this->options = $node->options;
+        $this->defaultValue = $node->defaultValue;
     }
 }
