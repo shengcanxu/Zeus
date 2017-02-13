@@ -16,6 +16,8 @@ class CheckBox extends Node
 
     public $defaultValue = '';
 
+    public $allowOthers = false;
+
     public function __construct($element){
         parent::__construct($element);
 
@@ -29,6 +31,10 @@ class CheckBox extends Node
 
         if(isset($element["defaultValue"])){
             $this->defaultValue = $element["defaultValue"];
+        }
+
+        if(isset($element["allowOthers"])){
+            $this->allowOthers = $element["allowOthers"] == 'true' ? true : false;
         }
     }
 
@@ -74,5 +80,6 @@ class CheckBox extends Node
 
         $this->options = $node->options;
         $this->defaultValue = $node->defaultValue;
+        $this->allowOthers = $node->allowOthers;
     }
 }

@@ -14,10 +14,17 @@
         <li>
             <p>配置</p>
             <input  type="checkbox" name="checkboxE_required" id="checkboxE_required" /> 必填 <br/>
+            <input type="checkbox" name="checkbox_option_allowothers" id="checkbox_option_allowothers" />允许其他值 <br/>
         </li>
         <li>
             <p>选项　&absp;&absp;<input type="button" value="增加" id="checkboxE_options_add"></p>
             <div id="checkboxE_options">
+
+            </div>
+            <div id="checkboxE_option_others" style="display: none">
+                <input type="radio" class="checkboxE_defaultvalue" name="checkboxE_options" disabled />
+                <label>其他</label>
+                <input type='text' class='checkboxE_options' value='' disabled/>
             </div>
         </li>
     </ul>
@@ -44,12 +51,18 @@
                         div.appendTo($("#checkboxE_options"));
                     }
                 }
+                if(element["allowOthers"]){
+                    $("#checkbox_option_allowothers").prop("checked",true);
+                }else{
+                    $("#checkbox_option_allowothers").prop("checked",false);
+                }
 
                 $("#confirmEditing").attr("node","checkboxediting");
             },
             confirm : function () {
                 editingObject["name"] = $("#checkboxE_name").val();
                 editingObject["required"] = $("#checkboxE_required").prop("checked");
+                editingObject["allowOthers"] = $("#checkbox_option_allowothers").prop("checked");
 
                 editingObject["options"] = [];
                 $("#checkboxE_options input.checkboxE_options").each(function () {
@@ -72,5 +85,12 @@
         $("#checkboxE_options").on("click","input.optionE_options_delete",function () {
             $(this).parent().remove();
         });
+        $("#checkbox_option_allowothers").click(function () {
+            if($("#checkbox_option_allowothers").prop("checked")) {
+                $("#checkboxE_option_others")[0].style.display = "block";
+            }else{
+                $("#checkboxE_option_others")[0].style.display = "none";
+            }
+        })
     </script>
 </div>

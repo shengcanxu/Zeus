@@ -14,6 +14,11 @@
             <div class="checkbox_options">
 
             </div>
+            <div id="checkbox_option_others" style="display: none">
+                <input type="radio" class="checkbox_defaultvalue" name="checkbox_options" disabled />
+                <label>其他</label>
+                <input type='text' class='checkbox_options' value='' disabled/>
+            </div>
         </div>
     </div>
 
@@ -39,6 +44,11 @@
                         }
                         div.appendTo($("#checkbox_template div.checkbox_options"));
                     }
+                }
+                if(element["allowOthers"]){
+                    $("#checkbox_option_others")[0].style.display = "block";
+                }else{
+                    $("#checkbox_option_others")[0].style.display = "none";
                 }
             },
 

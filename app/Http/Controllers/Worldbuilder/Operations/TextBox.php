@@ -42,7 +42,7 @@ class TextBox extends Node
         }
 
         if(isset($element["shouldAllNumber"])){
-            $this->shouldAllNumber = $element["shouldAllNumber"] === 'true' ? true : false;
+            $this->shouldAllNumber = $element["shouldAllNumber"] == 'true' ? true : false;
             if($this->shouldAllNumber){
                 $this->columnType = "double";
                 $this->length = "30,10";
